@@ -5,20 +5,36 @@
         <div class="col-lg-2"></div>
 
         <div class="col-lg-8 my-5">
-          <h1 class="text-center">Agenda</h1>
-          <p class="text-center lead">Seus contatos estão abaixo</p>
+          <h1 class="text-center">Contatos</h1>
+          <p class="text-center lead">Crie ou edite o seu formulário abaixo.</p>
           
           <%- include('includes/messages') %>
-          <div class="responsive-table">
-            <table class="table my-2">
-            <tr>
-              <td>Lucas</td>
-              <td>Arruda</td>
-              <td>11 94321-1234</td>
-              <td>uluketa@outlook.com</td>
-            </tr>
-          </table>
-        </div>
+          
+          <% if(contato._id) {%>
+            <form action="/contato/edit/<%= contato._id%>" method="POST">
+          <% } else { %>
+            <form action="/contato/register" method="POST">
+          <% } %>
+            <input type="hidden" name="_csrf" value=<%= csrfToken %>>
+            <div class="form-group">
+              <label>Nome</label>
+              <input value="<%= contato.nome %>" type="text" class="form-control" name="nome">
+            </div>
+            <div class="form-group">
+              <label>Sobrenome</label>
+              <input value="<%= contato.sobrenome %>" type="text" class="form-control" name="sobrenome">
+            </div>
+            <div class="form-group">
+              <label>E-mail</label>
+              <input value="<%= contato.email %>" type="email" class="form-control" name="email">
+            </div>
+            <div class="form-group">
+              <label>Telefone</label>
+              <input value="<%= contato.telefone %>" type="tel" class="form-control" name="telefone">
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+          </form>
+
       </div>
         
         <div class="col-lg-2"></div>
